@@ -5,7 +5,7 @@ on: [workflow_dispatch]
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    container: node:10.18-jessie
+    container: node:lts-jessie
     services:
       redis:
         image: redis
