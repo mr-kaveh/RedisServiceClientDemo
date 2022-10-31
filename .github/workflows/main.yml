@@ -32,8 +32,9 @@ jobs:
       - name: Install dependencies
         run: |
           npm cache clean -f
-          npm install -g n
-          n stable
+          npm init -y
+          npm install redis
+          npm ci
 
       - name: Connect to Redis
         # Runs a script that creates a Redis client, populates
