@@ -17,7 +17,7 @@ client.get('framework', function(err, reply) {
 
 // Hashes
 
-client.hmset('frameworks_hash', 'javascript', 'ReactJS', 'css', 'TailwindCSS', 'node', 'Express');
+client.set('frameworks_hash', 'javascript', 'ReactJS', 'css', 'TailwindCSS', 'node', 'Express');
 
 client.hgetall('frameworks_hash', function(err, object) {
   console.log(object); // { javascript: 'ReactJS', css: 'TailwindCSS', node: 'Express' }
