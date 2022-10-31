@@ -33,7 +33,7 @@ jobs:
         run: |
           npm cache clean -f
           npm init -y
-          npm install redis
+          npm install pg
           npm ci
 
       - name: Connect to Redis
