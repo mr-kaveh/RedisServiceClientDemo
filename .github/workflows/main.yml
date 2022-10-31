@@ -1,6 +1,6 @@
 name: Service Container
 
-on: [workflow_dispatch]
+on: [push]
 
 jobs:
   container-job:
@@ -20,6 +20,7 @@ jobs:
       
     - name: Install dependencies
       run: |
+        export LD_LIBRARY_PATH="/usr/local/lib64/:$LD_LIBRARY_PATH"
         npm cache clean -f
         npm install -g n
         n stable
