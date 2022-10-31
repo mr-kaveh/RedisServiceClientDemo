@@ -1,43 +1,31 @@
 const redis = require("redis");
+
 // Creates a new Redis client
-// In the workflow we are going ot set If REDIS_HOST and REDIS_PORT
+// If REDIS_HOST is not set, the default host is localhost
+// If REDIS_PORT is not set, the default port is 6379
 const redisClient = redis.createClient({
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT
+  port: process.env.REDIS_PORT  
 });
+
 redisClient.on("error", function(err) {
-  console.log("Error " + err);
+    console.log("Error " + err);
 });
 
-redisClient.set('hello', 'world', redis.print);
+// Sets the key "octocat" to a value of "Mona the octocat"
+redisClient.set("octocat", "Mona the Octocat", redis.print);
+// Sets a key to "octocat", field to "species", and "value" to "Cat and Octopus"
+redisClient.hset("species", "octocat", "Cat and Octopus", redis.print);
+// Sets a key to "octocat", field to "species", and "value" to "Dinosaur and Octopus"
+redisClient.hset("species", "dinotocat", "Dinosaur and Octopus", redis.print);
+// Sets a key to "octocat", field to "species", and "value" to "Cat and Robot"
+redisClient.hset(["species", "robotocat", "Cat and Robot"], redis.print);
+// Gets all fields in "species" key
 
-redisClient.hset('spanish', 'red', 'rojo', redis.print);
-redisClient.hset('spanish', 'orange', 'naranja', redis.print);
-redisClient.hset('spanish', 'blue', 'azul', redis.print);
-
-redisClient.hset('german', 'red', 'rot', redis.print);
-redisClient.hset('german', 'orange', 'orange', redis.print);
-redisClient.hset('german', 'blue', 'blau', redis.print);
-
-redisClient.get('hello', (err, value) => {
-  if (err) console.log(err);
-  else console.log(value);
-});
-
-redisClient.hget('spanish', 'red', (err, value) => {
-  if (err) console.log(err);
-  else console.log(value);
-});
-
-redisClient.hkeys("german", function (err, germankeys) {
-    console.log(germankeys.length + " germanWords:");
-    germankeys.forEach(function (germankey, i) {
-      redisClient.hget('spanish', germankey,
-      (err, value) => {
-      if (err) console.log(err);
-      else console.log(" " + i + " German word for: " +
-      germankey + " is: " + value)
+redisClient.hkeys("species", function (err, replies) {
+    console.log(replies.length + " replies:");
+    replies.forEach(function (reply, i) {
+        console.log("    " + i + ": " + reply);
     });
-  });
-  redisClient.quit();
+    redisClient.quit();
 });
