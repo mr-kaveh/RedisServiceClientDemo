@@ -1,6 +1,6 @@
 name: Service Container
 
-on: [push]
+on: [workflow_dispatch]
 
 jobs:
   container-job:
